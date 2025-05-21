@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>add to cart</title>
+
+	<style type="text/css">
+		
+		.input-div{
+			height: 30px;
+			color: black;
+			margin: 2px;
+			font-size: 16px;
+		}
+		.table-div{
+
+			width: 1250px;
+			text-align: center;
+
+
+		}
+		.table-div .id{
+			width: 70px;
+		}
+		.table-div .name
+		{
+			width: 180px;
+		}
+		.table-div .age{
+			width: 80px;
+		}
+		.table-div .email{
+			width: 350px;
+		}
+		.table-div .province{
+			width: 200px;
+		}
+		.table-div .course{
+			width: 100px;
+		}
+		.table-div .update{
+			width: 100px;
+		}
+		.table-div .deletebtn{
+			width: 100px;
+		}
+
+		.table-div .update button{
+			background-color: orange;
+			padding: 5px;
+			border: none;
+			border-radius: 5px;
+			color: white;
+			text-align: center;
+			cursor: pointer;
+		}
+		.deletebtn{
+			background-color: red;
+			padding: 5px;
+			border: none;
+			border-radius: 5px;
+			color: white;
+			text-align: center;
+			cursor: pointer;
+			margin: auto;
+			margin-top: 3px;
+		}
+		table,tr,th,td{
+
+			border: 1px solid gray;
+			padding: 3px;
+			border-collapse: collapse;
+		}
+		#btn{
+			border: none;
+			background-color: green;
+			padding: 4px;
+			margin: 10px;
+			border-radius: 4px;
+			font-size: 18px;
+			color: white;
+			cursor: pointer;
+		}
+	</style>
+</head>
+<body>
+
+
+
+	<h1>Add to card</h1>
+	
+	<div>
+		<input type="Number" name="" placeholder="Id" class="input-div" id="id">
+		<input type="text" name="" placeholder="Name" class="input-div" id="name">
+		<input type="Number" name="" placeholder="Age" class="input-div" id="age">
+		<input type="text" name="" placeholder="Email" class="input-div" id="email">
+		<input type="text" name="" placeholder="Province" class="input-div" id="province">
+		<input type="text" name="" placeholder="Course" class="input-div" id="course"><br>
+		<input type="submit" value="add to cart" name="" id="btn" onclick="addToCart()">
+
+	</div>
+
+<table class="table-div" >
+	<tr>
+		<th class="id">ID</th>
+		<th class="name">Name</th>
+		<th class="age">Age</th>
+		<th class="email">Email</th>
+		<th class="province">Province</th>
+		<th class="course">Course</th>
+		
+		<th class="delete">Delete</th>
+		
+	</tr>
+</table>
+<table class="table-div" id="student-data">	</table>
+
+
+
+
+
+<script type="text/javascript">
+	 
+
+	 let students =[];
+		function addToCart(){
+
+			let id = document.getElementById('id').value;
+			let name = document.getElementById('name').value;
+			let age = document.getElementById('age').value;
+			let email = document.getElementById('email').value;
+			let province = document.getElementById('province').value;
+			let course = document.getElementById('course').value;
+
+			
+			if (id == "" || name == "" || age == "" || email ==""||  province =="" || course ==""){
+
+				alert ('faild the all input ')
+			}
+			else{
+				students.push(
+					{id , name, age, email, province, course}
+				)
+			console.log(students)
+			getData()
+
+			 id = document.getElementById('id').value ='';
+			 name = document.getElementById('name').value ='';
+			 age = document.getElementById('age').value ='';
+			 email = document.getElementById('email').value ='';
+			 province = document.getElementById('province').value ='';
+			 course = document.getElementById('course').value ='';
+			}
+
+			
+		}
+
+
+function getData(){
+
+		let table = document.getElementById('student-data');
+		 table.innerHTML = '';
+
+		students.forEach((student, index)=>{
+
+			
+			tr = document.createElement('tr');
+			td = document.createElement('td');
+			
+			tr.innerHTML = `<td class='id'> ${student.id} </td> <td class='name'> ${student.name} </td> <td class='age'>${student.age} </td> <td class='email'> ${student.email} </td> <td class='province'> ${student.province} </td> <td class='course'> ${student.course}</td>  `;
+
+
+			let deletebtn = document.createElement('button');
+
+			deletebtn.textContent= 'delete';
+				
+			deletebtn.onclick=()=>{
+				
+				let allow = confirm(' are you sure to delete this user');
+
+				if (allow ==1)
+				{
+						students.splice(index, 1);
+				        getData()
+				}
+			
+
+			}
+
+			td.appendChild(deletebtn);
+			deletebtn.classList.add('deletebtn');
+
+			tr.appendChild(deletebtn)
+		    table.appendChild(tr);
+
+		});
+
+
+}
+
+</script>
+</body>
+</html>
